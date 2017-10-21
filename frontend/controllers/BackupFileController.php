@@ -119,6 +119,7 @@ class BackupFileController extends Controller
     
     
     if(isset($_GET['w'])){  
+           
         if (isset($_FILES[$fileName])) {          
             $backupModelLib = new BackupFileLib;
             $backupModelLib->distributor_id =  Yii::$app->user->identity->distributor_id;
@@ -127,7 +128,7 @@ class BackupFileController extends Controller
             $file = \yii\web\UploadedFile::getInstanceByName($fileName);
             $ext = explode(".", $file->name);
             $ext = end($ext);
-            if($ext=='png'){
+            if($ext=='7z'){
                 $backupDetailModel = new BackupFileDetail();
                  if($backupRowCountInweek <= 0){
                     $backupModel->backup_file_id = date('YmdHis');
@@ -141,10 +142,6 @@ class BackupFileController extends Controller
                 }else{
                     $rowBackup = $backupModelLib->getBakupFileId();
                     $backupDetailModel->backup_file_id = $rowBackup['backup_file_id'];
-                    // $backupDetailModel->backup_file_name = $file->name;
-                    // $rowBackupDetail = $backupModelLib->getBackupDetailIfExist();
-                    // $backupDetailModel->backup_file_name = $rowBackupDetail['backup_file_name'];
-                    // $backupDetailModel->deleteExistFile();
                     /*ambil data backup detail yang id nya sama dan nama filenya sama*/
 
                      $backupModelLib->backup_file_name =  $file->name;
@@ -154,10 +151,12 @@ class BackupFileController extends Controller
 
                 }
 
-                if ($file->saveAs($uploadPath .DIRECTORY_SEPARATOR. $file->name)) {
+                 $newUploadPath = $backupModelLib->setTargetUploadDist();
+
+                if ($file->saveAs($newUploadPath. $file->name)) {
                     $backupDetailModel->backup_file_detail_id =  'FID'.MyLib::generateRandomString();
                     $backupDetailModel->backup_file_name =  $file->name;
-                    $backupDetailModel->path =  $uploadPath .DIRECTORY_SEPARATOR. $file->name;
+                    $backupDetailModel->path =  $backupModelLib->setTargetUploadDist().$file->name;
                     $backupDetailModel->created_at =  date('Y-m-d H:i:s');
                     $backupDetailModel->save();
                 }
@@ -204,6 +203,16 @@ class BackupFileController extends Controller
         // return false;
     }
 
+    function actionGetListOfData($week){
+        $backup = new BackupFileLib;
+        $backup->distributor_id = Yii::$app->user->identity->distributor_id;
+        $backup->week = $week;
+        $data = $backup->getBackupFileDetail();
+        
+        return $this->renderAjax('list_of_backp',['data'=>$data]);
+
+
+    }
     public function actionSaveupload(){
         // echo 1;
         $model = new BackupFile();
