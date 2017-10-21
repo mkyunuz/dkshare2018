@@ -22,23 +22,14 @@ use frontend\models\BackupFileDetail;
         Modal::end();
 
 
-       /* $backupModelLib = new BackupFileLib;
-        $backupModelLib->distributor_id = Yii::$app->user->identity->distributor_id;
-        $backupModelLib->week =  $week;
-        // echo count($backupModelLib->checkBackupExistInWeek());
-        echo '<pre>';
-        print_r($backupModelLib->checkBackupExistInWeek());
-        echo '</pre>';*/
         $data = new BackupFileLib;
         $data->distributor_id = Yii::$app->user->identity->distributor_id;
         $data->week = $week;
         echo '<pre>';
         print_r($data->getBackupFileDetail());
         echo '</pre>';
-        // $path = new BackupFileLib();
-        // $path->distributor_id = Yii::$app->user->identity->distributor_id;
+     
         $uploadPath = $data->setDefaultBackupPath().DIRECTORY_SEPARATOR.$data->setTargetUploadDist();
         echo $uploadPath;
-        // echo "<pre>";
-        // print_r($data->setTargetUploadDist());
+      
 ?>
