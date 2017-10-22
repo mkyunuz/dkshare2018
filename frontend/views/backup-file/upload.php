@@ -25,25 +25,41 @@ use yii\widgets\ActiveForm;
     ?> -->
 <!-- <div id="contentUpload"></div> -->
 <?php
-	echo \kato\DropZone::widget([
-		'uploadUrl' => Url::toRoute(['/backup-file/upload','w' => $week]),
-		// 'uploadUrl' => Url::toRoute(['/backup-file/upload'], [
-		// 									    'data-method' => 'POST',
-		// 									    'data-params' => [
-		// 									        'wek' => $week,
-		// 									    ],
-		// 									]),
+    echo \kato\DropZone::widget([
+        'uploadUrl' => Url::toRoute(['/backup-file/upload','w' => $week]),
+        // 'uploadUrl' => Url::toRoute(['/backup-file/upload'], [
+        //                                      'data-method' => 'POST',
+        //                                      'data-params' => [
+        //                                          'wek' => $week,
+        //                                      ],
+        //                                  ]),
 
-    	'options' => [
-        	'maxFilesize' => '2', 'removedfile'=> true,
-       	],
+        'options' => [
+            'maxFilesize' => '100', 'removedfile'=> true,
+            'acceptedFiles'=> ".7z",
+            'dictInvalidFileType' => 'please upload 7z files'
+        ],
 
-    	'clientEvents' => [
-        	// 'complete' => "function(file){\$('#modal').modal('hide')}",
-        	'complete' => "function(file){console.log(file)}",
-        	'removedfile' => "function(file){alert(file.name + ' is removed')}",
-        	// 'success' => Url::toRoute(['/backup-file/upload','w' => 42]),
-		],
+        'clientEvents' => [
+            'complete' => "function(file){
+                                        
+                                        \$.ajax({
+                                        type:'POST',
+                                        url: 'index.php?r=backup-file/get-list-of-data',
+                                        data : { week : 1},
+                                        beforeSend : function(){
+                                            \$('#backupData').html('Loading...');
+                                        },
+                                        success: function(data){
+                                             \$('#backupData').html(data)
+                                        }
+                                    })
+                            }",
+            // 'complete' => "function(file){console.log(file)}",
+            'removedfile' => "function(file){alert(file.name + ' is removed')}",
+
+            // 'success' => Url::toRoute(['/backup-file/upload','w' => 42]),
+        ],
    ]);
 ?>
 
@@ -55,8 +71,8 @@ use yii\widgets\ActiveForm;
         //         'multiple'=>true, 'allowedFileExtensions'=>['jpg','png']
         //     ],
 
-	        	
-	        	
+                
+                
         //     'pluginOptions' => [
         //         'uploadUrl' => Url::toRoute(['/backup-file/upload','w' => 42]),
         //         'uploadExtraData' => [

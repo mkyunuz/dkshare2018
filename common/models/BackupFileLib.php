@@ -79,12 +79,18 @@ class BackupFileLib extends Component{
                   ->join('join','hor', 'hor.hor_id=titik.hor_id')
                   ->where('distributor.distributor_id=:distributor_id', array(':distributor_id'=>$this->distributor_id))
                   ->one();
-      return $query['hor_name'].DIRECTORY_SEPARATOR.$query['titik_name'].DIRECTORY_SEPARATOR.$query['distributor_name'];
+      return $this->setDefaultBackupPath().DIRECTORY_SEPARATOR.$query['hor_name'].DIRECTORY_SEPARATOR.$query['titik_name'].DIRECTORY_SEPARATOR.$query['distributor_name'].DIRECTORY_SEPARATOR.$this->week.DIRECTORY_SEPARATOR;
 
 
   }
 
   function setDefaultBackupPath(){
       return "D:".DIRECTORY_SEPARATOR."BACKUP_DIST".DIRECTORY_SEPARATOR."2018";
+  }
+
+  function human_filesize($bytes, $decimals = 2) {
+      $factor = floor((strlen($bytes) - 1) / 3);
+      if ($factor > 0) $sz = 'KMGT';
+      return sprintf("%.{$decimals}f", $bytes / pow(1024, $factor)) . @$sz[$factor - 1] . 'B';
   }
 }
