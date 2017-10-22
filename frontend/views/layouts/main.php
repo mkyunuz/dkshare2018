@@ -4,6 +4,7 @@
 /* @var $content string */
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
@@ -29,7 +30,7 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => 'My Company',
+        'brandLabel' => 'DEKA-Share',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
@@ -37,8 +38,18 @@ AppAsset::register($this);
     ]);
     $menuItems = [
         ['label' => 'Home', 'url' => ['/site/index']],
-        ['label' => 'Backup', 'url' => ['/site/about']],
-        ['label' => 'Contact', 'url' => ['/site/contact']],
+        // ['label' => 'Backup', 'url' => ['/similar_text(first, second)/about']],
+        // ['label' => 'Contact', 'url' => ['/site/contact']],
+        ['label' => 'Backup', 'items' => [
+                 ['label' => 'Backup File', 'url' => Url::toRoute(['/backup-file'])],
+                 ['label' => 'History', 'url' => Url::toRoute(['/backup-file'])],
+            ], 
+        ],
+
+        ['label' => 'Shared File', 'items' => [
+                 ['label' => 'Backup File', 'url' => Url::toRoute(['/backup-file'])],
+            ],
+        ],
     ];
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
@@ -57,6 +68,8 @@ AppAsset::register($this);
         'options' => ['class' => 'navbar-nav navbar-left'],
         'items' => $menuItems,
     ]);
+
+   
     NavBar::end();
     ?>
 
