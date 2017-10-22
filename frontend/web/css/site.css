@@ -101,6 +101,65 @@ a.desc:after {
     border: none;
 }
 
+
+
+
+.thumb-file{
+        border: 1px solid #ECEFF1;
+        /*border-radius:5px;*/
+        background-color:#FAFAFA;
+        /*box-shadow: inset 0 0 0 1px #FAFAFA;*/
+        padding:10px;
+        /*text-align: center;*/
+    }
+
+    
+    .thumb-file > .thumb-file-info p{
+        color: #212121;
+        font-size: 12px;
+        padding: 0px;
+        /*border: 1px solid red;*/
+        margin:0px;
+        line-height: 16px;
+    }
+    .thumb-file > .thumb-file-info p.detail{
+        font-size: 9px;
+    }
+    .custom-col{
+        margin-bottom:25px;
+    }
+    .thumb-file-icon{
+        font-size: 48px;
+        /*width: 33.33%;*/
+        padding: 0px 10px;
+        color: #37474F;
+        line-height: 10px;
+        /*border: 1px solid red;*/
+        display: table-cell;
+        /*border:1px solid red;*/
+        /*text-align: center;*/
+    }
+    .thumb-file > .thumb-file-info{
+        text-align: left;
+        display: table-cell;
+        vertical-align: top;
+        /*border:1px solid red;*/
+    }
+    .thumb-file .download-attr{
+        /*text-align: right;*/
+        font-size: 11px;
+        /*border: 1px solid red !important;*/
+        display: block;
+    }
+    .thumb-file .download-attr a{
+        margin-left: 15px;
+    }
+
+
+
+
+
+
 @media(max-width:767px) {
     .nav li > form > button.logout {
         display:block;

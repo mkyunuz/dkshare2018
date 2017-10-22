@@ -26,23 +26,30 @@ $this->params['breadcrumbs'][] = $this->title;
 </style>
 <div class="backup-file-index">
 <?php Pjax::begin(); ?>  
-    <h1><?= Html::encode($this->title) ?></h1>
+   <!--  <h1><?= Html::encode($this->title) ?></h1> -->
     <!-- <?php echo $this->render('_search', ['model' => $searchModel]); ?> -->
 
-    <p>
+    <!-- <p>
         <?= Html::a('Create Backup File', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+    </p> -->
     <!-- <?= Url::toRoute(['backup-file/create', 'id' => 42]); ?> -->
     <div class="row">
     <?php
         $i = 0;
         for($i=1;$i<=52;$i++){ ?>
-            <a href="<?= Url::toRoute(['backup-file/data', 'w' => $i]); ?>" class="col-md-2 thumbs">
-                <div class="row-thumbs">
-                <p>Week <?= $i ?></p>
-                </div>    
-            </a>
+        <a href="<?= Url::toRoute(['backup-file/data', 'w' => $i]); ?>" class="col-md-3 custom-col">
+            <div href="<?= Url::toRoute(['backup-file/data', 'w' => $i]); ?>" class="thumb-file">
+                <div class="thumb-file-icon">
+                    <i class="fa fa-folder"></i>
+                </div>
+                <div class="thumb-file-info">
+                    <p>Week <?= $i ?></p>
+                    
+                </div>
+            </div>
+        </a>
      <?php   }
     ?>
+</div>
 </div>
 </div>

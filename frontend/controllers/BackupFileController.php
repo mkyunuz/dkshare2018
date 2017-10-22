@@ -35,7 +35,7 @@ class BackupFileController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index','data','upload'],
+                        'actions' => ['logout', 'index','data','upload','get-list-of-data'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -128,7 +128,7 @@ class BackupFileController extends Controller
             $file = \yii\web\UploadedFile::getInstanceByName($fileName);
             $ext = explode(".", $file->name);
             $ext = end($ext);
-            if($ext=='7z'){
+            // if($ext=='7z'){
                 $backupDetailModel = new BackupFileDetail();
                  if($backupRowCountInweek <= 0){
                     $backupModel->backup_file_id = date('YmdHis');
@@ -160,7 +160,7 @@ class BackupFileController extends Controller
                     $backupDetailModel->created_at =  date('Y-m-d H:i:s');
                     $backupDetailModel->save();
                 }
-            }
+            // }
            die();
         }
         return $this->renderAjax('upload',['week'=>$_GET['w'], 'model'=>$model]);
@@ -203,13 +203,13 @@ class BackupFileController extends Controller
         // return false;
     }
 
-    function actionGetListOfData($week){
+    function actionGetListOfData(){
         $backup = new BackupFileLib;
         $backup->distributor_id = Yii::$app->user->identity->distributor_id;
-        $backup->week = $week;
+        $backup->week = $_POST['week'];
         $data = $backup->getBackupFileDetail();
         
-        return $this->renderAjax('list_of_backp',['data'=>$data]);
+        return $this->renderAjax('list_of_backup',['data'=>$data]);
 
 
     }

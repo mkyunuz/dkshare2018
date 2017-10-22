@@ -11,58 +11,7 @@ use common\models\BackupFileLib;
 use frontend\models\BackupFileDetail;
 
 ?>
-<style type="text/css">
-    .thumb-file{
-        border: 1px solid #ECEFF1;
-        /*border-radius:5px;*/
-        background-color:#FAFAFA;
-        /*box-shadow: inset 0 0 0 1px #FAFAFA;*/
-        padding:10px;
-        /*text-align: center;*/
-    }
 
-    
-    .thumb-file > .thumb-file-info p{
-        color: #212121;
-        font-size: 12px;
-        padding: 0px;
-        /*border: 1px solid red;*/
-        margin:0px;
-        line-height: 16px;
-    }
-    .thumb-file > .thumb-file-info p.detail{
-        font-size: 9px;
-    }
-    .custom-col{
-        margin-bottom:25px;
-    }
-    .thumb-file-icon{
-        font-size: 48px;
-        /*width: 33.33%;*/
-        padding: 0px 10px;
-        color: #37474F;
-        line-height: 10px;
-        /*border: 1px solid red;*/
-        display: table-cell;
-        /*border:1px solid red;*/
-        /*text-align: center;*/
-    }
-    .thumb-file > .thumb-file-info{
-        text-align: left;
-        display: table-cell;
-        vertical-align: top;
-        /*border:1px solid red;*/
-    }
-    .thumb-file .download-attr{
-        /*text-align: right;*/
-        font-size: 11px;
-        /*border: 1px solid red !important;*/
-        display: block;
-    }
-    .thumb-file .download-attr a{
-        margin-left: 15px;
-    }
-</style>
  <?= Html::button('Upload File', ['value '=> Url::toRoute(['/backup-file/upload','w' => $week],['data-method' => 'post']), 'class' => 'btn btn-success', 'id'=> 'modalButton']) ?>
 
 <?php
@@ -77,7 +26,7 @@ use frontend\models\BackupFileDetail;
 
 <div class="clearfix">&nbsp;</div>
 <div id="backupData"></div>
-
+<!-- 
 <div class="row">
     <?php
             $data = new BackupFileLib;
@@ -109,15 +58,25 @@ use frontend\models\BackupFileDetail;
           
     ?>
     
-</div>
+</div> -->
 <?php
-$distributor_id = 10;
-$week = 1;
+$distributor_id = $data->distributor_id;
+$week = $data->week;
 $script = <<< JS
     // $("#backupData").html('asd');
-    loadData($distributor_id,$week);
-    function loadData(distributor_id="",week=""){
-        alert(distributor_id);
+    loadData($week);
+    function loadData(week=""){
+        $.ajax({
+            type:'POST',
+            url: 'index.php?r=backup-file/get-list-of-data',
+            data : { week : week},
+            beforeSend : function(){
+                $("#backupData").html('Loading...');
+            },
+            success: function(data){
+                 $("#backupData").html(data)
+            }
+        })
     }
 JS;
 $this->registerJs($script);
