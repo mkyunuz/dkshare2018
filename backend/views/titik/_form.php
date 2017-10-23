@@ -39,3 +39,13 @@ use backend\models\Hor;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+
+
+<?php
+
+$script = <<< JS
+    $("#masterMenu").addClass('active');
+JS;
+$this->registerJs($script);
+?>

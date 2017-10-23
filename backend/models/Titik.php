@@ -43,7 +43,7 @@ class Titik extends \yii\db\ActiveRecord
     {
         return [
             'titik_id' => 'Titik ID',
-            'hor_id' => 'Hor ID',
+            'hor_id' => 'Hor Name',
             'titik_name' => 'Titik Name',
         ];
     }

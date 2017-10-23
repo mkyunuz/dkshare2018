@@ -13,7 +13,13 @@ use kartik\select2\Select2;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="distributor-form">
+ <section class="col-lg-12 connectedSortable">
+          <div class="box no-radius">
+            <div class="box-header">
+               
+            </div>
+            <div class="box-body table-responsive no-padding">
+<div class="distributor-form col-lg-12">
 
     <?php $form = ActiveForm::begin(['id'=>$model->formName()]); ?>
 
@@ -58,10 +64,13 @@ use kartik\select2\Select2;
 
 </div>
 
+</div>
+</div>
+</section>
 
 <?php
 $script = <<< JS
-
+     $("#masterMenu").addClass('active');
     $('form#{$model->formName()}').on('beforeSubmit',function(e){
 
         // var \$form = $(this);
@@ -94,7 +103,6 @@ $script = <<< JS
             })
             return false;
     });
-    alert(1);
 
 JS;
 $this->registerJs($script)

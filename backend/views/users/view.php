@@ -6,13 +6,19 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model backend\models\Users */
 
-$this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Users', 'url' => ['index']];
+$this->title = $model->first_name." ".$model->last_name;
+$this->params['breadcrumbs'][] = ['label' => 'Master User', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="users-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+<section class="col-lg-12 connectedSortable">
+          <div class="box no-radius">
+            <div class="box-header">
+                
+            </div>
+            <div class="box-body table-responsive no-padding">
+<div class="users-view col-lg-12">
+
 
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
@@ -45,3 +51,15 @@ $this->params['breadcrumbs'][] = $this->title;
     ]) ?>
 
 </div>
+
+</div>
+</div>
+</section>
+
+<?php
+
+$script = <<< JS
+    $("#masterMenu").addClass('active');
+JS;
+$this->registerJs($script);
+?>

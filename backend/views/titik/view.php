@@ -7,12 +7,16 @@ use yii\widgets\DetailView;
 /* @var $model backend\models\Titik */
 
 $this->title = $model->titik_id;
-$this->params['breadcrumbs'][] = ['label' => 'Titiks', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Master Titik', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+<section class="col-lg-12 connectedSortable">
+          <div class="box no-radius">
+            <div class="box-header">
+            </div>
+            <div class="box-body table-responsive no-padding">
+<div class="distributor-index col-lg-12">
 <div class="titik-view">
-
-    <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->titik_id], ['class' => 'btn btn-primary']) ?>
@@ -35,3 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
     ]) ?>
 
 </div>
+</div>
+</div>
+</div>
+</section>

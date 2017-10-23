@@ -10,6 +10,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Levels', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->level_id, 'url' => ['view', 'id' => $model->level_id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
+
 <div class="levels-update">
 
     <h1><?= Html::encode($this->title) ?></h1>

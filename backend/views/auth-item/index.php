@@ -10,17 +10,22 @@ use yii\widgets\Pjax;
 $this->title = 'Auth Items';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="auth-item-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+<section class="col-lg-12 connectedSortable">
+          <div class="box no-radius">
+            <div class="box-header">
+                <?php  if(Yii::$app->user->can('create-auth-item')){ ?>
+                        <?= Html::a('Create Auth Item', ['create'], ['class' => 'btn btn-primary']) ?>
+                <?php } ?>
+            </div>
+            <div class="box-body table-responsive no-padding">
+<div class="auth-item-index col-lg-12">
 
-    <p>
-        <?= Html::a('Create Auth Item', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+
 <?php Pjax::begin(); ?>    <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'summary' => '',
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
@@ -37,3 +42,16 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]); ?>
 <?php Pjax::end(); ?></div>
+
+</div>
+</div>
+</section>
+
+
+<?php
+
+$script = <<< JS
+    $("#utilitesMenu").addClass('active');
+JS;
+$this->registerJs($script);
+?>

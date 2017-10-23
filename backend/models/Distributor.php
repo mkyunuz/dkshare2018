@@ -64,7 +64,7 @@ class Distributor extends \yii\db\ActiveRecord
             'distributor_name' => 'Distributor Name',
             'username' => 'Username',
             'distributor_id' => 'Distributor ID',
-            'titik_id' => 'Titik ID',
+            'titik_id' => 'Titik Name',
             'auth_key' => 'Auth Key',
             'password_hash' => 'Password',
             'repeat_password' => 'Retype Password',

@@ -36,7 +36,11 @@ class HorController extends Controller
                         'allow' => true,
                         'roles' => ['@'],
                     ],
-                   [ 'allow' => true, 'actions' => ['create'], 'roles' => ['create-hor'] ],
+                    [ 'allow' => true, 'actions' => ['create'], 'roles' => ['create-hor'] ],
+                    [ 'allow' => true, 'actions' => ['view'], 'roles' => ['read-hor'] ],
+                    [ 'allow' => true, 'actions' => ['update'], 'roles' => ['update-hor'] ],
+                    [ 'allow' => true, 'actions' => ['delete'], 'roles' => ['delete-hor'] ],
+
                    [ 'allow' => true, 'actions' => ['create-directory'], 'roles' => ['create-directory'] ],
                 ],
             ],

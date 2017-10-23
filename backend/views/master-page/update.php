@@ -7,12 +7,11 @@ use yii\helpers\Html;
 
 $this->title = 'Update Master Page: ' . $model->master_id;
 $this->params['breadcrumbs'][] = ['label' => 'Master Pages', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->master_id, 'url' => ['view', 'id' => $model->master_id]];
+$this->params['breadcrumbs'][] = ['label' => $model->master_name, 'url' => ['view', 'id' => $model->master_id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class="master-page-update">
 
-    <h1><?= Html::encode($this->title) ?></h1>
 
     <?= $this->render('_form', [
         'model' => $model,

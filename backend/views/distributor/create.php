@@ -7,12 +7,11 @@ use yii\helpers\Html;
 /* @var $model backend\models\Distributor */
 
 $this->title = 'Create Distributor';
-$this->params['breadcrumbs'][] = ['label' => 'Distributors', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Master Distributor', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="distributor-create">
 
-    <h1><?= Html::encode($this->title) ?></h1>
 
     <?= $this->render('_form', [
         'model' => $model,
