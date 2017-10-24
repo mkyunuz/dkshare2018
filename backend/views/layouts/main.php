@@ -33,11 +33,11 @@ ThemingAsset::register($this);
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="index2.html" class="logo">
-      <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>A</b>LT</span>
+    <a href="<?= Url::home(); ?>" class="logo">
+      <span class="logo-mini"><img style="width: 30px;" src="<?= Url::to('@web/../../assets/images/logo/icon-white-without-name.png', true)?>"> </span>
+      
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Admin</b>LTE</span>
+      <span style="" class="logo-lg"><span> <b>Deka</b>Share <p> PT. Dua Kelinci</p></span><img src="<?= Url::to('@web/../../assets/images/logo/icon-white-without-name.png', true)?>"> </span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -249,7 +249,7 @@ ThemingAsset::register($this);
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="images/user2-160x160.jpg" class="user-image" alt="User Image">
-              <span class="hidden-xs">Alexander Pierce</span>
+              <span class="hidden-xs"><?= Yii::$app->user->identity->username; ?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
@@ -257,7 +257,7 @@ ThemingAsset::register($this);
                 <img src="images/user2-160x160.jpg" class="img-circle" alt="User Image">
 
                 <p>
-                  Alexander Pierce - Web Developer
+                  God Mode - Web Developer
                   <small>Member since Nov. 2012</small>
                 </p>
               </li>
@@ -301,11 +301,27 @@ ThemingAsset::register($this);
           <img src="images/user2-160x160.jpg" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>Alexander Pierce</p>
+          <p>God Mode</p>
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
       </div>
       <ul class="sidebar-menu" data-widget="tree">
+        <li class="treeview">
+          <?php if (!Yii::$app->user->isGuest){ 
+
+            ?>
+            <?= Html::a('<i class="fa fa-sign-out"></i> Logout', 
+['site/logout'], [
+'data-method' => 'POST',
+'data-params' => [
+    'param1' => 1,
+    'param2' => 2,
+],
+]) ?>
+    
+<?php } ?>
+          
+        </li>
         <li class="treeview">
           <a href="#">
             <i class="fa fa-home"></i> <span>Home</span>

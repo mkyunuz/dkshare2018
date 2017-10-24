@@ -311,6 +311,26 @@ a:focus {
 .main-header .logo .logo-lg {
   display: block;
 }
+
+.main-header .logo .logo-lg span{
+  float:left;
+  margin-left: 8%;
+}
+.main-header .logo .logo-lg img{
+  float:left;
+  height: 45px;
+  padding-top: 10px;
+  padding-left: 10px;
+}
+
+.main-header .logo .logo-lg span p{
+ font-size: 10px;
+ display: block;
+ line-height: 0px;
+ padding: 0px;
+ margin: -10px;
+ margin-left: -35px
+}
 .main-header .logo .logo-mini {
   display: none;
 }

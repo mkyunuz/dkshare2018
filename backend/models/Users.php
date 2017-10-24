@@ -45,16 +45,16 @@ class Users extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['first_name', 'last_name', 'username' , 'email', 'level_id'], 'required'],
+            [['first_name', 'last_name', 'username' , 'email', 'level_id','status'], 'required'],
             ['status', 'integer'],
             [['created_at', 'updated_at'], 'safe'],
             [['first_name', 'last_name'], 'string', 'max' => 50],
             [['username' , 'email'], 'string', 'max' => 255],
             [['level_id'], 'string', 'max' => 15],
-            ['username', 'unique','message' => 'This email address has already been taken.'],
+            ['username', 'unique','message' => 'This username address has already been taken.'],
            
             [['level_id'], 'exist', 'skipOnError' => true, 'targetClass' => Levels::className(), 'targetAttribute' => ['level_id' => 'level_id']],
-            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This email address has already been taken.'],
+            ['email', 'unique'],
             ['email','email'],
             ['password_hash', 'required'],
             ['password_hash', 'string', 'min' => 6],

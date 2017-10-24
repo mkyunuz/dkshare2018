@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
           <div class="box no-radius">
             <div class="box-header">
                 <?php  if(Yii::$app->user->can('create-user')){ ?>
-                        <?= Html::a('Create Users', ['create'], ['class' => 'btn btn-primary']) ?>
+                        <?= Html::a('<i class="fa fa-plus"></i>&nbsp; Create Users', ['create'], ['class' => 'btn btn-success']) ?>
                 <?php } ?>
             </div>
             <div class="box-body table-responsive no-padding">
@@ -25,6 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <?php Pjax::begin(); ?>    <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'summary' => '',
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             'first_name',

@@ -18,10 +18,10 @@ use kartik\select2\Select2;
             <div class="box-header">
                
             </div>
-            <div class="box-body table-responsive no-padding">
+            <div class="box-body no-padding">
 <div class="distributor-form col-lg-12">
 
-    <?php $form = ActiveForm::begin(['id'=>$model->formName()]); ?>
+    <?php $form = ActiveForm::begin(['id'=>$model->formName(), 'enableAjaxValidation'=> true]); ?>
 
     <?= $form->field($model, 'distributor_name')->textInput(['maxlength' => true]) ?>
 
@@ -54,7 +54,11 @@ use kartik\select2\Select2;
     <!-- <?= $form->field($model, 'repeat_password')->textInput() ?> -->
     <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'status')->textInput() ?>
+    <!-- <?= $form->field($model, 'status')->textInput() ?> -->
+     <?php $status = ['10'=> 'Active','-1'=> 'Inactive']; ?>
+
+    <?= $form->field($model, 'status')->dropdownList($status, ['prompt'=> 'Select status']) ?>
+
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
@@ -71,38 +75,7 @@ use kartik\select2\Select2;
 <?php
 $script = <<< JS
      $("#masterMenu").addClass('active');
-    $('form#{$model->formName()}').on('beforeSubmit',function(e){
-
-        // var \$form = $(this);
-            // $.post(
-            //     \$form.attr('action'),
-            //     \$form.serialize()
-            // )
-            //     .done(function(result){
-            //         console.log(result);
-            //         if(result== 'success'){
-            //             $(\$form).trigger('reset');
-            //             alert('success');
-            //         }else{
-            //             alert('failed');
-            //         }
-            //     }).fail(function(){
-            //         console.log('server error');
-            //     });
-            var urlForm = $(this).attr('action');
-            $.ajax({
-                data : $(this).serialize(),
-                url : urlForm,
-                type : 'POST',
-                success : function(result){
-                    alert(result);
-                },
-                error : function(result){
-                    alert('server error');
-                }
-            })
-            return false;
-    });
+    
 
 JS;
 $this->registerJs($script)

@@ -17,7 +17,7 @@ use kartik\select2\Select2;
           <div class="box no-radius">
             <div class="box-header">
             </div>
-            <div class="box-body table-responsive no-padding">
+            <div class="box-body no-padding">
 <div class="auth-item-form col-lg-12">
 
     <?php $form = ActiveForm::begin(); ?>

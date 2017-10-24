@@ -46,7 +46,7 @@ class Distributor extends \yii\db\ActiveRecord
             [['distributor_name'], 'string', 'max' => 150],
             [['username', 'distributor_id'], 'string', 'max' => 10],
             [['password_hash', 'password_reset_token', 'email'], 'string', 'max' => 255],
-            // ['repeat_password', 'compare', 'compareAttribute'=>'password_hash', 'skipOnEmpty' => false, 'message'=>"Passwords don't match"],
+            ['repeat_password', 'compare', 'compareAttribute'=>'password_hash', 'skipOnEmpty' => false, 'message'=>"Passwords don't match"],
             [['username'], 'unique', 'targetClass' => Distributor::className()],
             [['email'], 'unique'],
             [['distributor_id'], 'unique'],

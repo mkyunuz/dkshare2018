@@ -17,8 +17,8 @@ $this->params['breadcrumbs'][] = $this->title;
 <section class="col-lg-12 connectedSortable">
           <div class="box no-radius">
             <div class="box-header">
-                <?php  if(Yii::$app->user->can('create-hor')){ ?>
-                       <?= Html::button('Create Titik', ['value '=> Url::to('index.php?r=titik/create'), 'class' => 'btn btn-primary', 'id'=> 'modalButton']) ?>
+                <?php  if(Yii::$app->user->can('create-titik')){ ?>
+                       <?= Html::button('<i class="fa fa-plus"></i>&nbsp; Create Titik', ['value '=> Url::to('index.php?r=titik/create'), 'class' => 'btn btn-success', 'id'=> 'modalButton']) ?>
                 <?php } ?>
             </div>
             <div class="box-body table-responsive no-padding">

@@ -9,11 +9,11 @@ use yii\widgets\ActiveForm;
 	<div class="box no-radius">
 		<div class="box-header">
 		</div>
-		<div class="box-body table-responsive no-padding">
+		<div class="box-body no-padding">
 			<div class="hor-index col-lg-12">
 				<div class="hor-form">
 
-					<?php $form = ActiveForm::begin(); ?>
+					<?php $form = ActiveForm::begin(['enableAjaxValidation'=>true]); ?>
 
 					<?= $form->field($model, 'hor_name')->textInput(['maxlength' => true]) ?>
 

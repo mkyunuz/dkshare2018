@@ -11,17 +11,11 @@ use yii\filters\VerbFilter;
 
 use yii\db\Command;
 use yii\db\Query;
+use yii\widgets\ActiveForm;
 
 use  yii\helpers\FileHelper;
 
-/**
- * TitikController implements the CRUD actions for Titik model.
- */
-class TitikController extends Controller
-{
-    /**
-     * @inheritdoc
-     */
+class TitikController extends Controller{
     public function behaviors()
     {
         return [
@@ -34,10 +28,7 @@ class TitikController extends Controller
         ];
     }
 
-    /**
-     * Lists all Titik models.
-     * @return mixed
-     */
+    
     public function actionIndex()
     {
         $searchModel = new TitikSearch();
@@ -49,11 +40,7 @@ class TitikController extends Controller
         ]);
     }
 
-    /**
-     * Displays a single Titik model.
-     * @param integer $id
-     * @return mixed
-     */
+   
     public function actionView($id)
     {
         return $this->render('view', [
@@ -61,14 +48,14 @@ class TitikController extends Controller
         ]);
     }
 
-    /**
-     * Creates a new Titik model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
+    
     public function actionCreate()
     {
         $model = new Titik();
+        if(Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())){
+            Yii::$app->response->format = 'json';
+            return ActiveForm::validate($model);
+        }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->titik_id]);
@@ -79,15 +66,14 @@ class TitikController extends Controller
         }
     }
 
-    /**
-     * Updates an existing Titik model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
-     */
+  
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        if(Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())){
+            Yii::$app->response->format = 'json';
+            return ActiveForm::validate($model);
+        }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->titik_id]);
@@ -98,12 +84,7 @@ class TitikController extends Controller
         }
     }
 
-    /**
-     * Deletes an existing Titik model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     */
+   
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
@@ -122,31 +103,19 @@ class TitikController extends Controller
                 ->andWhere('distributor.distributor_name!="PT. Mandiri ABadi Jaya Utomo"')
                
                 ->all();
-                // echo '<pre>';
-                // print_r($data);
         $defaultPath = 'D:'.DIRECTORY_SEPARATOR."BACKUP_DIST".DIRECTORY_SEPARATOR."2018";
         echo '<pre>';
         foreach ($data as $key) {
 
             for($i=1;$i<=52;$i++){
                 $distributor = $defaultPath.DIRECTORY_SEPARATOR.$key['hor_name'].DIRECTORY_SEPARATOR.$key['titik_name'].DIRECTORY_SEPARATOR.$key['distributor_name'].DIRECTORY_SEPARATOR.$i;
-                // echo $distributor.'<br>';
                 FileHelper::createDirectory($distributor, $mode = 0777, $recursive = true);
             }
-            // mkdir($defaultPath.DIRECTORY_SEPARATOR.$key->hor_name,0700);
-            // FileHelper::createDirectory($titik, $mode = 0775, $recursive = true);
         }
         echo '</pre>';
         
     }
-
-    /**
-     * Finds the Titik model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return Titik the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
+    
     protected function findModel($id)
     {
         if (($model = Titik::findOne($id)) !== null) {
