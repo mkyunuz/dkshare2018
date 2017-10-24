@@ -6,13 +6,19 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model backend\models\Distributor */
 
-$this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Distributors', 'url' => ['index']];
+$this->title = $model->distributor_name;
+$this->params['breadcrumbs'][] = ['label' => 'Master Distributor', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="distributor-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+ <section class="col-lg-12 connectedSortable">
+          <div class="box no-radius">
+            <div class="box-header">
+                
+            </div>
+            <div class="box-body table-responsive no-padding">
+<div class="distributor-view col-lg-12">
+
 
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
@@ -44,3 +50,17 @@ $this->params['breadcrumbs'][] = $this->title;
     ]) ?>
 
 </div>
+</div>
+</div>
+</section>
+
+
+
+<?php
+$script = <<< JS
+     $("#masterMenu").addClass('active');
+    
+
+JS;
+$this->registerJs($script)
+?>

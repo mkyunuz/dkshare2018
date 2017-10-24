@@ -8,20 +8,24 @@ use yii\helpers\Url;
 /* @var $searchModel backend\models\UserSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Users';
+$this->title = 'Master User';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+<section class="col-lg-12 connectedSortable">
+          <div class="box no-radius">
+            <div class="box-header">
+                <?php  if(Yii::$app->user->can('create-user')){ ?>
+                        <?= Html::a('<i class="fa fa-plus"></i>&nbsp; Create Users', ['create'], ['class' => 'btn btn-success']) ?>
+                <?php } ?>
+            </div>
+            <div class="box-body table-responsive no-padding">
+<div class="distributor-index col-lg-12">
 <div class="users-index">
 
-   <!--  <h1><?= Html::encode($this->title) ?></h1> -->
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-    <p>
-        <?= Html::a('Create Users', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
 <?php Pjax::begin(); ?>    <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'summary' => '',
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             'first_name',
@@ -87,4 +91,22 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ],
     ]); ?>
-<?php Pjax::end(); ?></div>
+<?php Pjax::end(); ?>
+    
+
+</div>
+</div>
+</div>
+</div>
+</section>
+
+
+
+
+<?php
+
+$script = <<< JS
+    $("#masterMenu").addClass('active');
+JS;
+$this->registerJs($script);
+?>

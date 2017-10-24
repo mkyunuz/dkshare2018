@@ -29,6 +29,7 @@ class Hor extends \yii\db\ActiveRecord
     {
         return [
             [['hor_name'], 'string', 'max' => 100],
+            ['hor_name', 'required']
         ];
     }
 
@@ -38,8 +39,8 @@ class Hor extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'hor_id' => 'Hor ID',
-            'hor_name' => 'Hor Name',
+            'hor_id' => 'HOR ID',
+            'hor_name' => 'HOR Name',
         ];
     }
 

@@ -60,13 +60,19 @@ use backend\models\AuthItem;
 use kartik\select2\Select2;
 
 $this->title = 'Update Users: ' . $userModel->id;
-$this->params['breadcrumbs'][] = ['label' => 'Users', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Master User', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $userModel->first_name." ".$userModel->last_name, 'url' => ['view', 'id' => $userModel->id]];
 $this->params['breadcrumbs'][] = 'Assignment';
 ?>
 
 
-<div class="row">
+<section class="col-lg-12 connectedSortable">
+          <div class="box no-radius">
+            <div class="box-header">
+                
+            </div>
+            <div class="box-body table-responsive no-padding">
+<div class="">
 	 <?= Yii::$app->session->getFlash('success'); ?>
 	<div class="col-md-3">
       <div class="well sidebar-nav sidebar-custom">
@@ -131,10 +137,13 @@ $this->params['breadcrumbs'][] = 'Assignment';
 		<div id="formContent"></div>
     </div>
 </div>
-
+</div>
+</div>
+</section>
 <?php
 
 $script = <<< JS
+	$("#masterMenu").addClass('active');
 	$(".authRoleClass").click(function(){
 		var values = $(this).attr('value');
 		$('.'+values).prop('checked', this.checked);

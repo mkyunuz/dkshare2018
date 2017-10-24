@@ -14,19 +14,33 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
+use yii\widgets\ActiveForm;;
+use yii\filters\AccessControl;
 
-/**
- * UsersController implements the CRUD actions for Users model.
- */
 class UsersController extends Controller
 {
-    /**
-     * @inheritdoc
-     */
     public function behaviors()
     {
         return [
-
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => ['login', 'error'],
+                        'allow' => true,
+                    ],
+                    [
+                        'actions' => ['logout', 'index'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                    [ 'allow' => true, 'actions' => ['create'], 'roles' => ['create-user'] ],
+                    [ 'allow' => true, 'actions' => ['view'], 'roles' => ['read-user'] ],
+                    [ 'allow' => true, 'actions' => ['update'], 'roles' => ['update-user'] ],
+                    [ 'allow' => true, 'actions' => ['delete'], 'roles' => ['delete-user'] ],
+                    [ 'allow' => true, 'actions' => ['user-assignment'], 'roles' => ['set-auth-assignment'] ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -36,10 +50,6 @@ class UsersController extends Controller
         ];
     }
 
-    /**
-     * Lists all Users models.
-     * @return mixed
-     */
     public function actionIndex()
     {
         $searchModel = new UserSearch();
@@ -51,11 +61,6 @@ class UsersController extends Controller
         ]);
     }
 
-    /**
-     * Displays a single Users model.
-     * @param integer $id
-     * @return mixed
-     */
     public function actionView($id)
     {
         return $this->render('view', [
@@ -63,15 +68,14 @@ class UsersController extends Controller
         ]);
     }
 
-    /**
-     * Creates a new Users model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
     public function actionCreate()
     {
         $model = new Users();
-       
+        if(Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())){
+            Yii::$app->response->format = 'json';
+            return ActiveForm::validate($model);
+        }
+
         if ($model->load(Yii::$app->request->post())) {
 
             $model->created_at = date('Y-m-d H:i:s');
@@ -81,6 +85,7 @@ class UsersController extends Controller
             if($model->save()){
                 return $this->redirect(['view', 'id' => $model->id]);
             }else{
+                $model->password_hash = '';
                 return $this->render('create', [
                     'model' => $model,
                 ]);
@@ -93,25 +98,25 @@ class UsersController extends Controller
         }
     }
 
-    /**
-     * Updates an existing Users model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
-     */
+
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+         if(Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())){
+            Yii::$app->response->format = 'json';
+            return ActiveForm::validate($model);
+        }
 
         if ($model->load(Yii::$app->request->post())) {
             $model->password_hash = $_POST['Users']['password_hash'];
             if($_POST['Users']['new_password']!=""){
                 $model->password_hash = $_POST['Users']['new_password'];
             }
-            print_r($model->password_hash);
+            
             if($model->save()){
                 return $this->redirect(['view', 'id' => $model->id]);
             }else{
+                $model->password_hash ='';
                  return $this->render('update', [
                     'model' => $model,
                 ]);
@@ -123,12 +128,7 @@ class UsersController extends Controller
         }
     }
 
-    /**
-     * Deletes an existing Users model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     */
+   
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
@@ -181,7 +181,6 @@ class UsersController extends Controller
         if($model->load(Yii::$app->request->post())){
 
         }else{
-            // $authIter['create'] = AuthItem::model()->find(['name=:name', 'rule_name:ruleName'], array(':postID'=>10));
             $authItem = AuthItem::find()->where(['rule_name' => $role_id])
                                 ->andWhere(['like', 'name', 'create'])
                                 ->all();
@@ -191,14 +190,6 @@ class UsersController extends Controller
          
 
     }
-
-    /**
-     * Finds the Users model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return Users the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
     protected function findModel($id)
     {
         if (($model = Users::findOne($id)) !== null) {

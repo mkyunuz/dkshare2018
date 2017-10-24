@@ -12,7 +12,13 @@ use kartik\select2\Select2;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="auth-item-form">
+
+<section class="col-lg-12 connectedSortable">
+          <div class="box no-radius">
+            <div class="box-header">
+            </div>
+            <div class="box-body no-padding">
+<div class="auth-item-form col-lg-12">
 
     <?php $form = ActiveForm::begin(); ?>
 
@@ -44,3 +50,16 @@ use kartik\select2\Select2;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+</div>
+</div>
+</section>
+
+
+<?php
+
+$script = <<< JS
+    $("#utilitesMenu").addClass('active');
+JS;
+$this->registerJs($script);
+?>

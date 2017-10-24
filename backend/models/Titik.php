@@ -32,6 +32,7 @@ class Titik extends \yii\db\ActiveRecord
         return [
             [['hor_id'], 'integer'],
             [['titik_name'], 'string', 'max' => 200],
+            [['titik_name','hor_id'], 'required'],
             [['hor_id'], 'exist', 'skipOnError' => true, 'targetClass' => Hor::className(), 'targetAttribute' => ['hor_id' => 'hor_id']],
         ];
     }
@@ -43,7 +44,7 @@ class Titik extends \yii\db\ActiveRecord
     {
         return [
             'titik_id' => 'Titik ID',
-            'hor_id' => 'Hor ID',
+            'hor_id' => 'Hor Name',
             'titik_name' => 'Titik Name',
         ];
     }

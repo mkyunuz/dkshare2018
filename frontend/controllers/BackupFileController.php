@@ -35,7 +35,7 @@ class BackupFileController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index','data','upload','get-list-of-data'],
+                        'actions' => ['logout', 'index','data','upload','get-list-of-data','download' ,'delete-files'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -213,6 +213,73 @@ class BackupFileController extends Controller
 
 
     }
+
+    public function actionDownload($id){
+        $model = new BackupFileDetail;
+        $dataDownload = BackupFileDetail::find()->with('backupFile')->asArray()->one();
+        $distributor_id = Yii::$app->user->identity->distributor_id;
+        
+        if( $dataDownload['backupFile']['distributor_id'] == $distributor_id){
+            // print_r($dataDownload['path']);
+            $target = $dataDownload['path'];
+            // return Yii::$app()->getRequest()->sendFile($target, @file_get_contents($target));
+            if (file_exists($target)) {
+                header('Content-Description: File Transfer');
+                header('Content-Type: application/octet-stream');
+                header('Content-Disposition: attachment; filename="'.basename($target).'"');
+                header('Expires: 0');
+                header('Cache-Control: must-revalidate');
+                header('Pragma: public');
+                header('Content-Length: ' . filesize($target));
+                readfile($target);
+                exit;
+            }else{
+                 throw new NotFoundHttpException("Error Processing Request");
+            }
+        }else{
+            throw new NotFoundHttpException("Error Processing Request");
+            
+        }
+
+    }
+
+
+    public function actionDeleteFiles($id){
+        $model = new BackupFileDetail;
+        $dataDownload = BackupFileDetail::find()->with('backupFile')->asArray()->one();
+        $distributor_id = Yii::$app->user->identity->distributor_id;
+        
+        if($dataDownload['backupFile']['distributor_id'] == $distributor_id){
+            /*unlik file*/
+
+            /*if(unlink)
+            ** Delete databas
+            **else:
+            **  NOT FOUND
+            */
+            echo '<pre>';
+            $week = $dataDownload['backupFile']['week'];
+             return $this->redirect(['/backup-file/data', 'w'=>$week]);
+            // print_r($dataDownload);
+            die();
+            print_r($dataDownload['path']);
+            $target = $dataDownload['path'];
+            // return Yii::$app()->getRequest()->sendFile($target, @file_get_contents($target));
+            if (file_exists($target)) {
+               if(unlink($target)){
+                    BackupFileDetail::findModel($id)->delete();
+                    // redirect()
+               }
+            }else{
+                 throw new NotFoundHttpException("Error Processing Request");
+            }
+        }else{
+            throw new NotFoundHttpException("Error Processing Request");
+            
+        }
+
+    }
+
     public function actionSaveupload(){
         // echo 1;
         $model = new BackupFile();

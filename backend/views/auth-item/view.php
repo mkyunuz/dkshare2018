@@ -7,12 +7,17 @@ use yii\widgets\DetailView;
 /* @var $model backend\models\AuthItem */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Auth Items', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Master Auth Items', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="auth-item-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+<section class="col-lg-12 connectedSortable">
+          <div class="box no-radius">
+            <div class="box-header">
+            </div>
+            <div class="box-body table-responsive no-padding">
+<div class="auth-item-view col-lg-12">
+
 
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->name], ['class' => 'btn btn-primary']) ?>
@@ -40,3 +45,6 @@ $this->params['breadcrumbs'][] = $this->title;
     ]) ?>
 
 </div>
+</div>
+</div>
+</section>

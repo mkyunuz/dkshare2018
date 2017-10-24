@@ -10,9 +10,14 @@ $this->title = $model->master_id;
 $this->params['breadcrumbs'][] = ['label' => 'Master Pages', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="master-page-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+<section class="col-lg-12 connectedSortable">
+          <div class="box no-radius">
+            <div class="box-header">
+            </div>
+            <div class="box-body table-responsive no-padding">
+<div class="master-page-view col-lg-12">
+
 
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->master_id], ['class' => 'btn btn-primary']) ?>
@@ -35,3 +40,14 @@ $this->params['breadcrumbs'][] = $this->title;
     ]) ?>
 
 </div>
+</div>
+</div>
+</section>
+
+<?php
+
+$script = <<< JS
+    $("#utilitesMenu").addClass('active');
+JS;
+$this->registerJs($script);
+?>

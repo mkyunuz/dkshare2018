@@ -8,7 +8,12 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="master-page-form">
+<section class="col-lg-12 connectedSortable">
+          <div class="box no-radius">
+            <div class="box-header">
+            </div>
+            <div class="box-body no-padding">
+<div class="master-page-form col-lg-12">
 
     <?php $form = ActiveForm::begin(); ?>
 
@@ -23,3 +28,16 @@ use yii\widgets\ActiveForm;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+</div>
+</div>
+</section>
+
+
+<?php
+
+$script = <<< JS
+    $("#utilitesMenu").addClass('active');
+JS;
+$this->registerJs($script);
+?>
